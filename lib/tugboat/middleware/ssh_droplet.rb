@@ -50,6 +50,11 @@ module Tugboat
 
         host_string = "#{ssh_user}@#{host_ip}"
 
+        if env['user_droplet_ssh_wait']
+          "Wait flag given, waiting for droplet to become active"
+          wait_for_state(env["droplet_id"],'active',env['barge'])
+        end
+
         say "Attempting SSH: #{host_string}"
 
         options << host_string
